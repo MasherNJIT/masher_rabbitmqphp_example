@@ -1,0 +1,20 @@
+*{
+    font-family: "Verdana", "Geneva", "Tahoma", sans-serif;
+    color: midnightblue;
+
+}
+
+div{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+form{
+    margin-left:15px;
+}
+
+body{
+    background-color: aliceblue;
+}
