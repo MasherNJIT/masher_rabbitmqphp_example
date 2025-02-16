@@ -4,13 +4,25 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
-function doLogin($username,$password)
+function doLogin($uname,$passwd)
 {
-    // lookup username in databas
-    // check password TEST TEST
-    return true;
-    //return false if not valid
+    $mysqli = require __DIR__ . "/database.php";
+    $sql = sprintf('SELECT password FROM user_login WHERE email = "%s"',
+            $mysqli->real_escape_string($uname));
+    $result = $mysqli->query($sql);
+    if ($result && $user = $result->fetch_assoc()) {
+            if ($passwd == $user["password"]) {
+                    return array("returnCode" => '1',
+                            'message' => "Login Successful");
+                } else {
+                        return array("returnCode" => '0',
+                                'message' => "wrong password");
+        }
+    } else {
+            return array("returnCode" => '0', 'message' => "user not found");
+    }
 }
+
 
 function requestProcessor($request)
 {
