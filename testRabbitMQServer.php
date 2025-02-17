@@ -4,6 +4,7 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
+/*
 function doLogin($uname,$passwd)
 {
     $mysqli = require __DIR__ . "/database.php";
@@ -20,6 +21,30 @@ function doLogin($uname,$passwd)
         }
     } else {
             return array("returnCode" => '0', 'message' => "user not found");
+    }
+}
+ */
+
+function doLogin($uname, $passwd) {
+    $mysqli = require __DIR__ . "/database.php";
+    //if (!$mysqli || !($mysqli instanceof mysqli)) {
+    //    return array("returnCode" => '0', 'message' => "Database connection failed");
+    // }
+
+    $sql = "SELECT password FROM user_login WHERE username = ?";
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("s", $uname);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($user = $result->fetch_assoc()) {
+	if ($passwd == $user["password"]) {
+		return array("returnCode" => '1', 'message' => "Login Successful");
+        } else {
+		return array("returnCode" => '0', 'message' => "Wrong password");
+        }
+    } else {
+	    return array("returnCode" => '0', 'message' => "User not found");
     }
 }
 
