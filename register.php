@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <link rel="stylesheet" href="main.css"; ?>
 <h1>Register</h1>
-<form  method="POST"> 
+<form action="registration.php" method="POST">
     <div> 
         <label for="email">Email</label>
         <input type="email" name="email" required />
@@ -16,19 +16,12 @@
     </div>
     <div>
         <label for="username">Username</label>
-        <input type="text" id="user_name" name="username" required />
+        <input type="text" id="username" name="username" required />
     </div>
     <div>
-        <label for="pw">Password</label>
+        <label for="password">Password</label>
         <input type="password" id="password" name="password" required />
-    </div>
-    <div>
-        <label for="confirm">Confirm password</label>
-        <input type="password" name="password" required />
     </div>
     <input type="submit" value="register"/>
 </form>
-
-<?php
-
-?>
+</html>

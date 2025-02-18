@@ -4,6 +4,25 @@
 
 }
 
+ul {
+    list-style: none;
+    padding:10px;
+    background-color: steelblue;
+}
+  
+li {
+    list-style: none;
+}
+ 
+li a{
+    color: aliceblue;
+    text-decoration: none;
+}
+
+li a:hover {
+  color:white;
+  }
+ 
 div{
     padding-top: 10px;
     padding-bottom: 10px;
@@ -16,5 +35,6 @@ form{
 }
 
 body{
+    margin:0px;
     background-color: aliceblue;
 }
