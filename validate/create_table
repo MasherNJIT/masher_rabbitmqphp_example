@@ -1,0 +1,6 @@
+CREATE TABLE sessions (
+    session_id VARCHAR(255) PRIMARY KEY,
+    user_id INT,  -- Optional if you need user association
+    session_data TEXT,  -- Store serialized or JSON data
+    expires_at DATETIME
+);
