@@ -1,4 +1,5 @@
 <?php
+//CODE REFERENCED FROM: Mike Gabriel Ayson
 echo "logging in...";
 require_once('path.inc');
 require_once('get_host_info.inc');
@@ -38,12 +39,19 @@ $response = $client->send_request($request);
 if($response['returnCode'] == 1) //This picks up return code 
 //if the front-end recieves a message from the MQ with a return code of 1, it means the login is successful 
 {
-  startSession();
-  validateSession();
-  $d = time()-18000;
-  echo "Create date is " .date("Y-m-d h:i:sa", $d);
-  header("Location: home.php"); 
+  $d = time();
+  echo "Created date is " .$d;
+  $session_request['type']= "validate_session";
+  $session_request['session_data']="data";
+  $session_request['session_start']= $d;
+  $session_response = $client->send_request($session_request); 
+
   //echo "Heres the username" .$request['username'].   "and heres the password"  .$request['password']; //NOTE: this is just testing to make sure that the username and password went over
+}
+
+if($session_response['returnCode'] == 2) //This picks up return code 
+{
+  header("Location: home.php");
 }
 else if ($response['returnCode'] == 0) //returns user back to login page if login is a failure
 {
