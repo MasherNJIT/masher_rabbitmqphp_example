@@ -51,6 +51,26 @@ function doRegister($fname, $lname, $email, $passwd, $uname)
 
 }
 
+function doValidate($sessionID, $userID, $sessionData)
+{
+
+$mysqli = require __DIR__ . "/database.php";
+$sql = "INSERT INTO sessions (session_id, user_id, session_data, session_start, session_expires)
+	VALUES (?, ?, ?, UNIX_TIMESTAMP()-18000, UNIX_TIMESTAMP() + 3600)";
+
+$stmt = $mysqli->stmt_init();
+   if (!$stmt->prepare($sql)) {
+      return array("returnCode" => "0", "message" => 'statement prepare error');
+   }
+$stmt->bind_param("sis", $sessionID, $userID, $sessionData)
+if ($stmt->execute()) {
+      return array ("returnCode" => "1", "message" => 'success');
+   } else {
+       return array("returnCode" => "0", "message" => 'statement execution failed');
+   }
+
+}
+
 function requestProcessor($request)
 {
   echo "received request".PHP_EOL;
@@ -64,7 +84,7 @@ function requestProcessor($request)
     case "login":
       return doLogin($request['username'],$request['password']);
     case "validate_session":
-      return doValidate($request['sessionId']);
+      return doValidate($request['session_id'], $request['user_id'], $request['session_data']);
     case "register":
       return doRegister($request['f_name'], $request['l_name'], $request['email'], 
 	  $request['username'], $request['password']);
