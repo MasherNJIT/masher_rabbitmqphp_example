@@ -3,6 +3,7 @@ echo "logging in...";
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
+require_once('functions.php');
 
 $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
 if (isset($argv[1]))
@@ -37,6 +38,10 @@ $response = $client->send_request($request);
 if($response['returnCode'] == 1) //This picks up return code 
 //if the front-end recieves a message from the MQ with a return code of 1, it means the login is successful 
 {
+  startSession();
+  validateSession();
+  $d = time()-18000;
+  echo "Create date is " .date("Y-m-d h:i:sa", $d);
   header("Location: home.php"); 
   //echo "Heres the username" .$request['username'].   "and heres the password"  .$request['password']; //NOTE: this is just testing to make sure that the username and password went over
 }
