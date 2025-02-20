@@ -27,7 +27,7 @@ function doLogin($uname, $passwd) {
     }
 }
 
-function doRegister($fname, $lname, $email, $uname, $passwd)
+function doRegister($fname, $lname, $email, $passwd, $uname)
 {
    $passhash = password_hash($passwd, PASSWORD_DEFAULT);	
    $mysqli = require __DIR__ . "/database.php";
