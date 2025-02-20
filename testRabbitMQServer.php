@@ -51,20 +51,20 @@ function doRegister($fname, $lname, $email, $passwd, $uname)
 
 }
 
-function doValidate($sessionID, $userID, $sessionData, $sesStart, $sesEnd)
+function doValidate(/*$sessionID, $userID,*/ $sessionData, $sesStart)
 {
 
 $mysqli = require __DIR__ . "/database.php";
-$sql = "INSERT INTO sessions (session_id, user_id, session_data, session_start, session_expires)
-	VALUES (?, ?, ?, ?, ?)";
+$sql = "INSERT INTO sessions (user_id, session_data, session_start)
+	VALUES (3, ?, ?)";
 
 $stmt = $mysqli->stmt_init();
    if (!$stmt->prepare($sql)) {
       return array("returnCode" => "0", "message" => 'statement prepare error');
    }
-$stmt->bind_param("sisss", $sessionID, $userID, $sessionData, $sesStart, $sesEnd)
+$stmt->bind_param("si", /*$sessionID, $userID,*/ $sessionData, $sesStart);
 if ($stmt->execute()) {
-      return array ("returnCode" => "1", "message" => 'success');
+      return array ("returnCode" => "2", "message" => 'success');
    } else {
        return array("returnCode" => "0", "message" => 'statement execution failed');
    }
@@ -84,7 +84,7 @@ function requestProcessor($request)
     case "login":
       return doLogin($request['username'],$request['password']);
     case "validate_session":
-      return doValidate($request['session_id'], $request['user_id'], $request['session_data'], $request['session_start'), $request['session_expires']);
+	    return doValidate(/*$request['session_id'], $request['user_id'],*/ $request['session_data'], $request['session_start'] /*$request['session_expires']*/);
     case "register":
       return doRegister($request['f_name'], $request['l_name'], $request['email'], 
 	  $request['username'], $request['password']);
