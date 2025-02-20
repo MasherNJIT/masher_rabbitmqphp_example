@@ -14,7 +14,7 @@ case "$ROLE" in
 		echo "Applying DMZ firewall rules..."
 		sudo ufw allow from $WEB_IP to any port 80 proto tcp
 		sudo ufw allow from $WEB_IP to any port 443 proto tcp
-		sudo ufw allow from any to any port 22 proto tcp
+		sudo ufw allow from $DMZ_IP to any port 22 proto tcp
 		sudo ufw deny from any
 		;;
 	
