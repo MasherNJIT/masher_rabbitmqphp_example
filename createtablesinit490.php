@@ -58,8 +58,8 @@ $query3 = "CREATE TABLE if not exists sessions (
 	session_id INT PRIMARY KEY AUTO_INCREMENT,
     	user_id INT NOT NULL,  
     	session_data TEXT, 
-	session_start DATETIME NOT NULL,
-	session_expires DATETIME,
+	session_start INT(11) NOT NULL,
+	session_expires INT(11),
    	FOREIGN KEY (user_id) REFERENCES user_login(user_id) ON DELETE CASCADE
     )";
 if ( $mydb->query($query3)== TRUE){
