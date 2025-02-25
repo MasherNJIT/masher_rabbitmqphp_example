@@ -49,7 +49,6 @@ if($response['returnCode'] == 1) //This picks up return code
   $session_response = $client_session->send_request($session_request); */
 header("Location: validate.php");
   //echo "Heres the username" .$request['username'].   "and heres the password"  .$request['password']; //NOTE: this is just testing to make sure that the username and password went over
-}
 
 if($session_response['returnCode'] == 2) //This picks up return code 
 {

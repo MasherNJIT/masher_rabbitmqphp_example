@@ -45,7 +45,7 @@ if($response['returnCode'] == 1) //This picks up return code
 
   //echo "Heres the username" .$request['username'].   "and heres the password"  .$request['password']; //NOTE: this is just testing to make sure that the username and password went over
 }
-else ($response['returnCode'] == 0) //returns user back to login page if login is a failure
+else if ($response['returnCode'] == 0) //returns user back to login page if login is a failure
 {
   echo $response;
   header("Location: index.php");
