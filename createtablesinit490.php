@@ -40,13 +40,14 @@ if ($mydb->errno != 0)
 echo "successfully connected to database: ".$db2.PHP_EOL;
 
 
-$query2 = "create table if not exists user_login(
-	user_id int primary key auto_increment,
-	f_name varchar(255) not null,
-	l_name varchar(255) not null,
-	email varchar(255) not null unique,
-	password varchar(255) not null,
-	created_at timestamp default current_timestamp
+$query2 = "CREATE TABLE IF NOT EXISTS user_login(
+	user_id INT PRIMARY KEY AUTO_INCREMENT,
+	f_name VARCHAR(255) NOT NULL,
+	l_name VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL UNIQUE,
+	username VARCHAR(255) NOT NULL UNIQUE,
+	password VARCHAR(255) NOT NULL,
+	created_at INT(11) NOT NULL
 	)";
 if ( $mydb->query($query2)== TRUE){
 	echo "table created succesfully\n";
@@ -54,9 +55,9 @@ if ( $mydb->query($query2)== TRUE){
 	echo "Error: " . $mydb->error;
 }
 
-$query3 = "CREATE TABLE if not exists sessions (
+$query3 = "CREATE TABLE IF NOT EXISTS sessions (
 	session_id INT PRIMARY KEY AUTO_INCREMENT,
-    	user_id INT NOT NULL,  
+	user_id INT NOT NULL,  
     	session_data TEXT, 
 	session_start INT(11) NOT NULL,
 	session_expires INT(11),
@@ -68,5 +69,5 @@ if ( $mydb->query($query3)== TRUE){
         echo "Error: " . $mydb->error;
 }
 
-
+$mydb->close();
 ?>
