@@ -4,6 +4,9 @@
 
 }
 
+
+nav{
+
 ul {
     list-style: none;
     padding:10px;
@@ -12,13 +15,16 @@ ul {
   
 li {
     list-style: none;
+    display: inline;
 }
  
 li a{
     color: white;
+    padding: 10px;
     text-decoration: none;
 }
 
+}
  
 div{
     padding-top: 10px;
