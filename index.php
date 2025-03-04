@@ -6,7 +6,7 @@
         <ul>
         <li><a href="register.php">Register</a></li>
         </ul>
-    </nav>
+</nav>
 
 <div>
 <h1>Welcome back!</h1>

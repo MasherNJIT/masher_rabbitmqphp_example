@@ -4,8 +4,17 @@
     <link rel="stylesheet" href="main.css">
     <title>Register</title>
 </head>
+
+<nav>
+        <ul>
+        <li><a href="index.php">Login</a></li>
+        </ul>
+</nav>
+
 <body>
+<div>
     <h1>Register</h1>
+</div>
     <form action="registration.php" method="POST">
         <div> 
             <label for="email">Email</label>
@@ -27,7 +36,7 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required />
         </div>
-        <input type="submit" value="register"/>
+        <input type="submit" value="register" class="button"/>
     </form>
 
     <?php
