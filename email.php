@@ -6,7 +6,7 @@ use Dotenv\Dotenv;
 
 require 'vendor/autoload.php';
 
-$dotenv = Dotenv::createImmutable(__DIR__); // Load .env file
+$dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $mail = new PHPMailer(true);
