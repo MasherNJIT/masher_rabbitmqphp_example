@@ -1,13 +1,13 @@
 *{
     font-family: "Verdana", "Geneva", "Tahoma", sans-serif;
-    color: midnightblue;
+    color: darkgreen;
 
 }
 
 ul {
     list-style: none;
     padding:10px;
-    background-color: steelblue;
+    background-color: seagreen;
 }
   
 li {
@@ -15,13 +15,10 @@ li {
 }
  
 li a{
-    color: aliceblue;
+    color: white;
     text-decoration: none;
 }
 
-li a:hover {
-  color:white;
-  }
  
 div{
     padding-top: 10px;
@@ -36,5 +33,12 @@ form{
 
 body{
     margin:0px;
-    background-color: aliceblue;
+    background-color: honeydew;
+}
+
+.button{
+    background-color: seagreen;
+    color: white;
+    border: none;
+    padding: 8px 15px;
 }
