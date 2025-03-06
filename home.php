@@ -8,5 +8,3 @@ include('partials/nav.php');
 <h1>Home</h1>
 </div>
 
-
-

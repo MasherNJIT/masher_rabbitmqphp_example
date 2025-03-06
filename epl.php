@@ -5,5 +5,5 @@ include('partials/nav.php');
 <link rel="stylesheet" href="main.css"; ?>
 
 <div>
-<h1>MLS</h1>
+<h1>EPL</h1>
 </div>
