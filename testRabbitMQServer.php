@@ -71,7 +71,7 @@ function doRegister($fname, $lname, $email, $uname, $passwd)
     	$mail->isHTML(true);
     	$mail->Subject = 'Test Email';
 	$mail->Body    = '<h1>Hello!</h1>
-			  <p>registrsation sucess</p>';
+			  <p>registration success</p>';
 
     	$mail->send();
 	echo 'Email sent successfully!';
@@ -89,7 +89,50 @@ function doRegister($fname, $lname, $email, $uname, $passwd)
 
 }
 
-function doValidate(/*$userID,*/ $sessionData, $sesStart)
+function doPlayers($pname, $playeridAPI, $position, $teamID, $goals, $passpercent, $cleansheet, $points)
+{
+
+	$mysqli = require __DIR__ . "/database.php";
+	$sql = "INSERT INTO api_players (player_name, player_id_api, player_position, team_id, 
+                                         goals_scored, pass_percent, cleen_sheets, points_earned)
+		VAlUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	$stmt = $mysqli->stmt_init();
+	if (!$stmt->prepare($sql)) {
+            return array("returnCode" => "0", "message" => 'statement prepare error');
+          }
+	$stmt->bind_param("sisiiiii", $pname, $playeridAPI, $position, $teamID, 
+		                      $goals, $passpercent, $cleansheet, $points);
+	if ($stmt->execute()) {
+	   return array ("returnCode" => "1", "message" => 'success');
+        } else {
+ 	   return array ("returnCode" => "0", "message" => 'error');
+	}
+
+}
+
+function doTeams($teamname, $teamidAPI, $stadium, $conference)
+{
+
+$mysqli = require __DIR__ . "/database.php";
+$sql = "INSERT INTO api_teams (team_name, team_id_api, stadium, conference)
+	VALUES (?, ?, ?, ?)";
+
+$stmt = $mysqli->stmt_init();
+   if (!$stmt->prepare($sql)) {
+      return array("returnCode" => "0", "message" => 'statement prepare error');
+   }
+
+$stmt->bind_param("siss", $teamname, $stadium, $conference);
+if ($stmt->execute()) {
+      return array ("returnCode" => "1", "message" => 'success');
+   } else {
+       return array("returnCode" => "0", "message" => 'statement execution failed');
+   }
+
+}
+
+
+function doValidate($sessionData, $sesStart)
 {
 
 $mysqli = require __DIR__ . "/database.php";
@@ -100,7 +143,7 @@ $stmt = $mysqli->stmt_init();
    if (!$stmt->prepare($sql)) {
       return array("returnCode" => "0", "message" => 'statement prepare error');
    }
-$stmt->bind_param("si",/* $userID*/$sessionData, $sesStart);
+$stmt->bind_param("si", $sessionData, $sesStart);
 if ($stmt->execute()) {
       return array ("returnCode" => "1", "message" => 'success');
    } else {
@@ -125,7 +168,12 @@ function requestProcessor($request)
 	    return doValidate($request['session_data'], $request['session_start']);
     case "register":
       return doRegister($request['f_name'], $request['l_name'], $request['email'], 
-	  $request['username'], $request['password']);
+	                $request['username'], $request['password']);
+    case "APIplayers":
+	    return doPlayers($request['player_name'], $request['player_position'], $request['goals_scored'],
+		             $request['pass_percent'], $request['cleen_sheets'], $request['points_earned']);
+    case "APIteams":
+	   return doTeams($request['team_name'], $request['stadium'], $request['conference']); 
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
