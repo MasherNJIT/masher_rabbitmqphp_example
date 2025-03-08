@@ -3,7 +3,7 @@
 
 $db1 = 'mysql';
 $db2 = 'it490';
-$mydb = new mysqli('127.0.0.1','bobby','12345','mysql');
+$mydb = new mysqli('192.168.192.71','bobby','bobby','mysql');
 
 if ($mydb->errno != 0)
 {
@@ -13,7 +13,7 @@ if ($mydb->errno != 0)
 
 echo "successfully connected to database: ".$db1.PHP_EOL;
 
-$checkuser = 'evan';
+$checkuser = 'bobby';
 
 $query1 = "select user from user where user = ?";
 $stmt = $mydb->prepare($query1);
@@ -24,7 +24,7 @@ $stmt->store_result();
 if ($stmt->num_rows > 0) {
 	echo "User: $checkuser exists\n";
 } else {
-        echo "User dont exist\n";
+        echo "User does not exist\n";
 }
 
 $mydb->close();
@@ -68,6 +68,42 @@ if ( $mydb->query($query3)== TRUE){
 } else {
         echo "Error: " . $mydb->error;
 }
+
+$t_api_table = 'api_teams';
+$p_api_table = 'api_players';
+
+
+$query4 = "CREATE TABLE IF NOT EXISTS ".$t_api_table." (
+	team_id INT PRIMARY KEY AUTO_INCREMENT,
+	team_name VARCHAR(255) NULL UNIQUE,
+	team_id_api INT NOT NULL,
+	stadium VARCHAR(255),
+	league VARCHAR(255)
+    )";
+if ( $mydb->query($query4)== TRUE){
+        echo "table: ".$t_api_table." created succesfully\n";
+} else {
+        echo "Error: " . $mydb->error;
+}
+
+$query5 = "CREATE TABLE IF NOT EXISTS ".$p_api_table." (
+	player_id INT PRIMARY KEY AUTO_INCREMENT,
+	player_name VARCHAR(255) NOT NULL,
+	player_id_api INT NOT NULL,
+	player_posistion VARCHAR(255) NOT NULL,
+	team_id INT NOT NULL,
+	goals_scored INT,
+	pass_percent INT,
+	clean_sheets INT,
+	point_earned INT,
+	FOREIGN KEY (team_id) REFERENCES api_teams(team_id) ON DELETE CASCADE    
+	)";
+if ( $mydb->query($query5)== TRUE){
+        echo "table: ".$p_api_table." created succesfully\n";
+} else {
+        echo "Error: " . $mydb->error;
+}
+
 
 $mydb->close();
 ?>
