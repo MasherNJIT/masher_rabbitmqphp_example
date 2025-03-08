@@ -89,19 +89,17 @@ function doRegister($fname, $lname, $email, $uname, $passwd)
 
 }
 
-function doPlayers($pname, $playeridAPI, $position, $teamID, $goals, $passpercent, $cleansheet, $points)
+function doPlayers($pname, $position, $playeridAPI, $teamID)
 {
 
 	$mysqli = require __DIR__ . "/database.php";
-	$sql = "INSERT INTO api_players (player_name, player_id_api, player_position, team_id, 
-                                         goals_scored, pass_percent, cleen_sheets, points_earned)
-		VAlUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	$sql = "INSERT INTO api_players (player_name, player_id_api, player_position, team_id)
+		VAlUES (?, ?, ?, ?)";
 	$stmt = $mysqli->stmt_init();
 	if (!$stmt->prepare($sql)) {
             return array("returnCode" => "0", "message" => 'statement prepare error');
           }
-	$stmt->bind_param("sisiiiii", $pname, $playeridAPI, $position, $teamID, 
-		                      $goals, $passpercent, $cleansheet, $points);
+	$stmt->bind_param("sisi", $pname, $playeridAPI, $position, $teamID);
 	if ($stmt->execute()) {
 	   return array ("returnCode" => "1", "message" => 'success');
         } else {
@@ -122,7 +120,7 @@ $stmt = $mysqli->stmt_init();
       return array("returnCode" => "0", "message" => 'statement prepare error');
    }
 
-$stmt->bind_param("siss", $teamname, $stadium, $conference);
+$stmt->bind_param("siss", $teamname, $teamidAPI, $stadium, $conference);
 if ($stmt->execute()) {
       return array ("returnCode" => "1", "message" => 'success');
    } else {
@@ -170,8 +168,7 @@ function requestProcessor($request)
       return doRegister($request['f_name'], $request['l_name'], $request['email'], 
 	                $request['username'], $request['password']);
     case "APIplayers":
-	    return doPlayers($request['player_name'], $request['player_position'], $request['goals_scored'],
-		             $request['pass_percent'], $request['cleen_sheets'], $request['points_earned']);
+	    return doPlayers($request['name'], $request['position'], $request['idPlayer'], $request['idTeam']);
     case "APIteams":
 	   return doTeams($request['team_name'], $request['stadium'], $request['conference']); 
   }
