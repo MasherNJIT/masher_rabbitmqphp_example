@@ -101,11 +101,21 @@ function doPlayers($pname, $position, $playeridAPI, $teamID)
           }
 	$stmt->bind_param("sisi", $pname, $playeridAPI, $position, $teamID);
 	if ($stmt->execute()) {
-	   return array ("returnCode" => "1", "message" => 'success');
+	    $teamSQL = "INSERT INTO api_teams (team_id_api)
+		        VAlUES (?)";
+	    $stmt2 = $mysqli->stmt_init();
+	    if (!$stmt2->prepare($teamSQL)) {
+                return array("returnCode" => "0", "message" => 'statement prepare error');
+	     }
+	    $stmt2->bind_param("i", $teamID);
+	    if ($stmt2->execute()){
+		return array ("returnCode" => "1", "message" => 'success');
+	    } else {
+	         return array ("returnCode" => "0", "message" => 'stmt2 error');
+	    }
         } else {
  	   return array ("returnCode" => "0", "message" => 'error');
 	}
-
 }
 
 function doTeams($teamname, $teamidAPI, $stadium, $conference)
