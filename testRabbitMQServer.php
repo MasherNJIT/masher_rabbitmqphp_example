@@ -101,28 +101,17 @@ function doPlayers($pname, $position, $playeridAPI, $teamID)
           }
 	$stmt->bind_param("sisi", $pname, $playeridAPI, $position, $teamID);
 	if ($stmt->execute()) {
-	    $teamSQL = "INSERT INTO api_teams (team_id_api)
-		        VAlUES (?)";
-	    $stmt2 = $mysqli->stmt_init();
-	    if (!$stmt2->prepare($teamSQL)) {
-                return array("returnCode" => "0", "message" => 'statement prepare error');
-	     }
-	    $stmt2->bind_param("i", $teamID);
-	    if ($stmt2->execute()){
-		return array ("returnCode" => "1", "message" => 'success');
-	    } else {
-	         return array ("returnCode" => "0", "message" => 'stmt2 error');
-	    }
+	   return array ("returnCode" => "1", "message" => 'success');
         } else {
  	   return array ("returnCode" => "0", "message" => 'error');
 	}
 }
 
-function doTeams($teamname, $teamidAPI, $stadium, $conference)
+function doTeams($teamname, $teamidAPI, $stadium, $league)
 {
 
 $mysqli = require __DIR__ . "/database.php";
-$sql = "INSERT INTO api_teams (team_name, team_id_api, stadium, conference)
+$sql = "INSERT INTO api_teams (team_name, team_id_api, stadium, league)
 	VALUES (?, ?, ?, ?)";
 
 $stmt = $mysqli->stmt_init();
@@ -130,7 +119,7 @@ $stmt = $mysqli->stmt_init();
       return array("returnCode" => "0", "message" => 'statement prepare error');
    }
 
-$stmt->bind_param("siss", $teamname, $teamidAPI, $stadium, $conference);
+$stmt->bind_param("siss", $teamname, $teamidAPI, $stadium, $league);
 if ($stmt->execute()) {
       return array ("returnCode" => "1", "message" => 'success');
    } else {
