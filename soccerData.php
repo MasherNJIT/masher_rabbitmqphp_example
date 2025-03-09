@@ -1,3 +1,5 @@
+#!/usr/bin/php
+
 <?php
 // Define API endpoint with the correct format
 $apiKey = "485649";
