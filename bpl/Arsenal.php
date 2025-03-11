@@ -26,7 +26,7 @@ if (!empty($arrayCode['player'])) {
                 'name' => $player['strPlayer'] ?? "",
                 'position' => $player['strPosition'] ?? "",
                 'idPlayer' => $player['idPlayer'] ?? "",
-                'idTeam' => $player['idTeam'] ?? ""
+                'team_name' => $player['strTeam'] ?? ""
             ];
         }
     }

@@ -55,11 +55,11 @@ foreach ($teamsData['teams'] as $team) {
                     strpos($player['strTeam'], "U23") === false &&
                     $player['strPosition'] !== "Manager") {
 
-                    $allPlayers[] = [
-                        'name'     => $player['strPlayer'] ?? "",
-                        'position' => $player['strPosition'] ?? "",
-                        'idPlayer' => $player['idPlayer'] ?? "",
-                        'idTeam'   => $player['idTeam'] ?? ""
+		    $allPlayers[] = [
+			    'player_name'     => $player['strPlayer'] ?? "",
+			    'player_id_api' => $player['idPlayer'] ?? "",
+                        'player_position' => $player['strPosition'] ?? "",
+                        'team_name'   => $player['strTeam'] ?? ""
                     ];
                 }
             }
