@@ -105,14 +105,14 @@ function doPlayers($pname, $position, $playeridAPI, $teamID)
         } else {
  	   return array ("returnCode" => "0", "message" => 'error');
 	}
-
 }
 
-function doTeams($teamname, $teamidAPI, $stadium, $conference)
+/*
+function doTeams($teamname, $teamidAPI, $stadium, $league)
 {
 
 $mysqli = require __DIR__ . "/database.php";
-$sql = "INSERT INTO api_teams (team_name, team_id_api, stadium, conference)
+$sql = "INSERT INTO api_teams (team_name, team_id_api, stadium, league)
 	VALUES (?, ?, ?, ?)";
 
 $stmt = $mysqli->stmt_init();
@@ -120,15 +120,45 @@ $stmt = $mysqli->stmt_init();
       return array("returnCode" => "0", "message" => 'statement prepare error');
    }
 
-$stmt->bind_param("siss", $teamname, $teamidAPI, $stadium, $conference);
+$stmt->bind_param("siss", $teamname, $teamidAPI, $stadium, $league);
 if ($stmt->execute()) {
       return array ("returnCode" => "1", "message" => 'success');
    } else {
        return array("returnCode" => "0", "message" => 'statement execution failed');
    }
-
 }
+*/
 
+function doTeams($APIdata)
+{
+	$allTeams = [];
+/*
+	foreach ($APIdata['teams'] as $team) {
+    	$allTeams[] = [
+        	'team_name' => $team['strTeam'] ?? "",
+        	'team_id' => $team['idTeam'] ?? "",
+        	'stadium' => $team['strStadium'] ?? "",
+	        'league' => $team['strLeague'] ?? "",
+    	];
+	}
+ */
+	$mysqli = require __DIR__ . "/database.php";
+	$sql = "INSERT INTO api_teams (team_name, team_id_api, stadium, league) VALUES (?, ?, ?, ?)";
+	$stmt = $mysqli->stmt_init();
+
+	if (!$stmt->prepare($sql)) {
+    	   return array("returnCode" => "0", "message" => 'Statement prepare error');
+	 }
+
+	foreach ($APIdata as $team) {
+    	   $stmt->bind_param("siss", $team['team_name'], $team['team_id_api'], $team['stadium'], $team['league']);
+    
+    	   if (!$stmt->execute()) {
+              return array("returnCode" => "0", "message" => 'Statement execution failed');
+    	     }
+	}
+	return array("returnCode" => "1", "message" => 'Statement execution success');
+}
 
 function doValidate($sessionData, $sesStart)
 {
@@ -170,7 +200,9 @@ function requestProcessor($request)
     case "APIplayers":
 	    return doPlayers($request['name'], $request['position'], $request['idPlayer'], $request['idTeam']);
     case "APIteams":
-	   return doTeams($request['team_name'], $request['stadium'], $request['conference']); 
+	  // return doTeams($request['team_name'], $request['team_id_api'], $request['stadium'], $request['league']); 
+	    //return doTeams($request['team_name'], $request['stadium'], $request['conference']); 
+	    return doTeams($request['teams']);
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
