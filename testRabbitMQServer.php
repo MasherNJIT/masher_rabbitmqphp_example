@@ -128,7 +128,7 @@ if ($stmt->execute()) {
    }
 }
 */
-
+//new func
 function doTeams($APIdata)
 {
 	$allTeams = [];
