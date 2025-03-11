@@ -88,16 +88,14 @@ if ( $mydb->query($query4)== TRUE){
 
 $query5 = "CREATE TABLE IF NOT EXISTS ".$p_api_table." (
 	player_id INT PRIMARY KEY AUTO_INCREMENT,
-	player_name VARCHAR(255) NOT NULL,
-	player_id_api INT NOT NULL,
-	player_posistion VARCHAR(255) NOT NULL,
-	team_id INT NOT NULL,
+	player_name VARCHAR(255),
+	player_id_api INT,
+	player_posistion VARCHAR(255),
+	team_name VARCHAR(255),
 	goals_scored INT,
 	pass_percent INT,
 	clean_sheets INT,
-	point_earned INT,
-	FOREIGN KEY (team_id) REFERENCES api_teams(team_id) ON DELETE CASCADE    
-	)";
+	point_earned INT)";
 if ( $mydb->query($query5)== TRUE){
         echo "table: ".$p_api_table." created succesfully\n";
 } else {
