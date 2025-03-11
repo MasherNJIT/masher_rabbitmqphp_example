@@ -169,7 +169,7 @@ function requestProcessor($request)
     case "APIplayers":
 	    return doPlayers($request['name'], $request['position'], $request['idPlayer'], $request['idTeam']);
     case "APIteams":
-	   return doTeams($request['team_name'], $request['stadium'], $request['conference']); 
+	   return doTeams($request['team_name'], $request['team_id_api'], $request['stadium'], $request['league']); 
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
