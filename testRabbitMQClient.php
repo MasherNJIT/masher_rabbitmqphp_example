@@ -24,13 +24,12 @@ require_once('bpl/Tottenham.php');
 require_once('bpl/West_Ham.php');
 require_once('bpl/Wolves.php');
 
-
-
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
 $apiKey = "485649";
-$apiUrl = "https://www.thesportsdb.com/api/v1/json/{$apiKey}/search_all_teams.php?l=English%20Premier%20League";
 
+// Get all Premier League teams dynamically
+$apiUrl = "https://www.thesportsdb.com/api/v1/json/{$apiKey}/search_all_teams.php?l=English%20Premier%20League";
 $results = file_get_contents($apiUrl);
 $teamsData = json_decode($results, true);
 
@@ -38,26 +37,46 @@ if ($teamsData === null || empty($teamsData['teams'])) {
     die("Error: Unable to retrieve team data. Check API key or endpoint.");
 }
 
-$allTeams = [];
+$allPlayers = [];
 
 foreach ($teamsData['teams'] as $team) {
-    $allTeams[] = [
-        'team_name'   => $team['strTeam'] ?? "",
-        'team_id_api' => $team['idTeam'] ?? "",
-        'stadium'     => $team['strStadium'] ?? "",
-        'league'      => $team['strLeague'] ?? "",
-    ];
+    $teamName = $team['strTeam'] ?? "";
+
+    if (!empty($teamName)) {
+        $playersUrl = "https://www.thesportsdb.com/api/v1/json/{$apiKey}/searchplayers.php?t=" . urlencode($teamName);
+        $playerResults = file_get_contents($playersUrl);
+        $playersData = json_decode($playerResults, true);
+
+        if (!empty($playersData['player'])) {
+            foreach ($playersData['player'] as $player) {
+                if (isset($player['strPosition']) &&
+                    strpos($player['strTeam'], "Women") === false &&
+                    strpos($player['strTeam'], "U21") === false &&
+                    strpos($player['strTeam'], "U23") === false &&
+                    $player['strPosition'] !== "Manager") {
+
+                    $allPlayers[] = [
+                        'name'     => $player['strPlayer'] ?? "",
+                        'position' => $player['strPosition'] ?? "",
+                        'idPlayer' => $player['idPlayer'] ?? "",
+                        'idTeam'   => $player['idTeam'] ?? ""
+                    ];
+                }
+            }
+            echo "Fetched players from: $teamName" . PHP_EOL;
+        }
+    }
 }
 
-
+// Send all player data in one request
 $request = [
-    'type'  => "APIteams",
-    'teams' => $allTeams
+    'type'    => "APIplayers",
+    'players' => $allPlayers
 ];
 
 $response = $client->send_request($request);
 
-echo "Sent all team data in one request." . PHP_EOL;
+echo "Sent all player data in one request." . PHP_EOL;
 print_r($response);
 
 echo $argv[0] . " END" . PHP_EOL;
