@@ -132,7 +132,7 @@ if ($stmt->execute()) {
 function doTeams($APIdata)
 {
 	$allTeams = [];
-
+/*
 	foreach ($APIdata['teams'] as $team) {
     	$allTeams[] = [
         	'team_name' => $team['strTeam'] ?? "",
@@ -141,7 +141,7 @@ function doTeams($APIdata)
 	        'league' => $team['strLeague'] ?? "",
     	];
 	}
-
+ */
 	$mysqli = require __DIR__ . "/database.php";
 	$sql = "INSERT INTO api_teams (team_name, team_id_api, stadium, league) VALUES (?, ?, ?, ?)";
 	$stmt = $mysqli->stmt_init();
@@ -150,8 +150,8 @@ function doTeams($APIdata)
     	   return array("returnCode" => "0", "message" => 'Statement prepare error');
 	 }
 
-	foreach ($allTeams as $team) {
-    	   $stmt->bind_param("siss", $team['team_name'], $team['team_id'], $team['stadium'], $team['league']);
+	foreach ($APIdata as $team) {
+    	   $stmt->bind_param("siss", $team['team_name'], $team['team_id_api'], $team['stadium'], $team['league']);
     
     	   if (!$stmt->execute()) {
               return array("returnCode" => "0", "message" => 'Statement execution failed');
@@ -200,8 +200,9 @@ function requestProcessor($request)
     case "APIplayers":
 	    return doPlayers($request['name'], $request['position'], $request['idPlayer'], $request['idTeam']);
     case "APIteams":
+	  // return doTeams($request['team_name'], $request['team_id_api'], $request['stadium'], $request['league']); 
 	    //return doTeams($request['team_name'], $request['stadium'], $request['conference']); 
-	    return doTeams($request['apidata'];
+	    return doTeams($request['teams']);
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
