@@ -89,59 +89,29 @@ function doRegister($fname, $lname, $email, $uname, $passwd)
 
 }
 
-function doPlayers($pname, $position, $playeridAPI, $teamID)
+function doPlayers($APIplayers)
 {
 
 	$mysqli = require __DIR__ . "/database.php";
-	$sql = "INSERT INTO api_players (player_name, player_id_api, player_position, team_id)
-		VAlUES (?, ?, ?, ?)";
+	$sql = "INSERT INTO api_players (player_name, player_id_api, player_position, team_id) VAlUES (?, ?, ?, ?)";
 	$stmt = $mysqli->stmt_init();
+	
 	if (!$stmt->prepare($sql)) {
             return array("returnCode" => "0", "message" => 'statement prepare error');
-          }
-	$stmt->bind_param("sisi", $pname, $playeridAPI, $position, $teamID);
-	if ($stmt->execute()) {
-	   return array ("returnCode" => "1", "message" => 'success');
-        } else {
- 	   return array ("returnCode" => "0", "message" => 'error');
-	}
+	 }
+	
+	foreach ($APIplayers as $player) {
+		$stmt->bind_param("sisi", $player['player_name'], $player['player_id_api'], $player['position'], $player['team_id']);
+	if (!$stmt->execute()) {
+              return array("returnCode" => "0", "message" => 'Statement execution failed');
+             }
+        }
+        return array("returnCode" => "1", "message" => 'Statement execution success');
 }
 
-/*
-function doTeams($teamname, $teamidAPI, $stadium, $league)
-{
 
-$mysqli = require __DIR__ . "/database.php";
-$sql = "INSERT INTO api_teams (team_name, team_id_api, stadium, league)
-	VALUES (?, ?, ?, ?)";
-
-$stmt = $mysqli->stmt_init();
-   if (!$stmt->prepare($sql)) {
-      return array("returnCode" => "0", "message" => 'statement prepare error');
-   }
-
-$stmt->bind_param("siss", $teamname, $teamidAPI, $stadium, $league);
-if ($stmt->execute()) {
-      return array ("returnCode" => "1", "message" => 'success');
-   } else {
-       return array("returnCode" => "0", "message" => 'statement execution failed');
-   }
-}
-*/
-//new func
 function doTeams($APIdata)
 {
-	$allTeams = [];
-/*
-	foreach ($APIdata['teams'] as $team) {
-    	$allTeams[] = [
-        	'team_name' => $team['strTeam'] ?? "",
-        	'team_id' => $team['idTeam'] ?? "",
-        	'stadium' => $team['strStadium'] ?? "",
-	        'league' => $team['strLeague'] ?? "",
-    	];
-	}
- */
 	$mysqli = require __DIR__ . "/database.php";
 	$sql = "INSERT INTO api_teams (team_name, team_id_api, stadium, league) VALUES (?, ?, ?, ?)";
 	$stmt = $mysqli->stmt_init();
@@ -198,10 +168,8 @@ function requestProcessor($request)
       return doRegister($request['f_name'], $request['l_name'], $request['email'], 
 	                $request['username'], $request['password']);
     case "APIplayers":
-	    return doPlayers($request['name'], $request['position'], $request['idPlayer'], $request['idTeam']);
+	    return doPlayers($request['players']);
     case "APIteams":
-	  // return doTeams($request['team_name'], $request['team_id_api'], $request['stadium'], $request['league']); 
-	    //return doTeams($request['team_name'], $request['stadium'], $request['conference']); 
 	    return doTeams($request['teams']);
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
