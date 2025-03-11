@@ -7,3 +7,10 @@ include('partials/nav.php');
 <div>
 <h1>Players</h1>
 </div>
+
+<div>
+<h2>View Players</h2>
+ <?php
+ 
+ ?>                                  
+</div>
