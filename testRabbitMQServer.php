@@ -93,7 +93,7 @@ function doPlayers($APIplayers)
 {
 
 	$mysqli = require __DIR__ . "/database.php";
-	$sql = "INSERT INTO api_players (player_name, player_id_api, player_position, team_id) VAlUES (?, ?, ?, ?)";
+	$sql = "INSERT INTO api_players (player_name, player_id_api, player_position, team_name) VAlUES (?, ?, ?, ?)";
 	$stmt = $mysqli->stmt_init();
 	
 	if (!$stmt->prepare($sql)) {
@@ -101,7 +101,7 @@ function doPlayers($APIplayers)
 	 }
 	
 	foreach ($APIplayers as $player) {
-		$stmt->bind_param("sisi", $player['player_name'], $player['player_id_api'], $player['position'], $player['team_id']);
+		$stmt->bind_param("siss", $player['player_name'], $player['player_id_api'], $player['player_position'], $player['team_name']);
 	if (!$stmt->execute()) {
               return array("returnCode" => "0", "message" => 'Statement execution failed');
              }
@@ -167,7 +167,7 @@ function getTeams()
          }
 
 	return json_encode($teams);
-
+}
 function requestProcessor($request)
 {
   echo "received request".PHP_EOL;
