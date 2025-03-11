@@ -90,7 +90,7 @@ $query5 = "CREATE TABLE IF NOT EXISTS ".$p_api_table." (
 	player_id INT PRIMARY KEY AUTO_INCREMENT,
 	player_name VARCHAR(255),
 	player_id_api INT,
-	player_posistion VARCHAR(255),
+	player_position VARCHAR(255),
 	team_name VARCHAR(255),
 	goals_scored INT,
 	pass_percent INT,
