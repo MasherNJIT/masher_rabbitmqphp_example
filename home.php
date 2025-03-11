@@ -8,3 +8,6 @@ include('partials/nav.php');
 <h1>Home</h1>
 </div>
 
+<div>
+<h2>My Leagues</h2>
+</div>
