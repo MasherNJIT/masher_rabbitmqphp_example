@@ -168,6 +168,27 @@ function getTeams()
 
 	return json_encode($teams);
 }
+
+function getPlayers()
+{
+
+        $mysqli = require __DIR__ . "/database.php";
+        $sql = "SELECT * FROM api_players";
+
+        $result = $mysqli->query($sql);
+        if (!$result) {
+            return array("returnCode" => "0", "message" => 'select failed');
+          }
+
+        $teams = [];
+        while ($row = $result->fetch_assoc()) {
+            $teams[] = $row;
+         }
+
+        return json_encode($teams);
+}
+
+
 function requestProcessor($request)
 {
   echo "received request".PHP_EOL;
@@ -191,6 +212,8 @@ function requestProcessor($request)
 	    return doTeams($request['teams']);
     case "SelectTeams":
 	    return getTeams();
+    case "SelectPlayers":
+	    return getPlayers();
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
