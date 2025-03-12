@@ -28,7 +28,6 @@ $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
 $apiKey = "485649";
 
-// Get all Premier League teams dynamically
 $apiUrl = "https://www.thesportsdb.com/api/v1/json/{$apiKey}/search_all_teams.php?l=English%20Premier%20League";
 $results = file_get_contents($apiUrl);
 $teamsData = json_decode($results, true);
@@ -68,7 +67,6 @@ foreach ($teamsData['teams'] as $team) {
     }
 }
 
-// Send all player data in one request
 $request = [
     'type'    => "APIplayers",
     'players' => $allPlayers
