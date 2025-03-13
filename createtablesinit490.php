@@ -3,11 +3,12 @@
 
 $db1 = 'mysql';
 $db2 = 'it490';
-$mydb = new mysqli('192.168.192.71','bobby','bobby','mysql');
+//$mydb = new mysqli('192.168.192.71','bobby','bobby','mysql');
+require __DIR__ . "/database.php";
 
-if ($mydb->errno != 0)
+if ($mysqli->errno != 0)
 {
-        echo "failed to connect to database: ". $mydb->error . PHP_EOL;
+        echo "failed to connect to database: ". $mysqli->error . PHP_EOL;
         exit(0);
 }
 
@@ -15,8 +16,8 @@ echo "successfully connected to database: ".$db1.PHP_EOL;
 
 $checkuser = 'bobby';
 
-$query1 = "select user from user where user = ?";
-$stmt = $mydb->prepare($query1);
+$query1 = "select user from mysql.user where user = ?";
+$stmt = $mysqli->prepare($query1);
 $stmt->bind_param("s", $checkuser);
 $stmt->execute();
 $stmt->store_result();
@@ -27,13 +28,13 @@ if ($stmt->num_rows > 0) {
         echo "User does not exist\n";
 }
 
-$mydb->close();
+//$mysqli->close();
 
-$mydb = new mysqli('127.0.0.1','bobby','12345','it490');
+//$mydb = new mysqli('127.0.0.1','bobby','12345','it490');
 
-if ($mydb->errno != 0)
+if ($mysqli->errno != 0)
 {
-        echo "failed to connect to database: ". $mydb->error . PHP_EOL;
+        echo "failed to connect to database: ". $mysqli->error . PHP_EOL;
         exit(0);
 }
 
@@ -49,10 +50,10 @@ $query2 = "CREATE TABLE IF NOT EXISTS user_login(
 	password VARCHAR(255) NOT NULL,
 	created_at INT(11) NOT NULL
 	)";
-if ( $mydb->query($query2)== TRUE){
+if ( $mysqli->query($query2)== TRUE){
 	echo "table created succesfully\n";
 } else {
-	echo "Error: " . $mydb->error;
+	echo "Error: " . $mysqli->error;
 }
 
 $query3 = "CREATE TABLE IF NOT EXISTS sessions (
@@ -63,10 +64,10 @@ $query3 = "CREATE TABLE IF NOT EXISTS sessions (
 	session_expires INT(11),
    	FOREIGN KEY (user_id) REFERENCES user_login(user_id) ON DELETE CASCADE
     )";
-if ( $mydb->query($query3)== TRUE){
+if ( $mysqli->query($query3)== TRUE){
         echo "table created succesfully\n";
 } else {
-        echo "Error: " . $mydb->error;
+        echo "Error: " . $mysqli->error;
 }
 
 $t_api_table = 'api_teams';
@@ -80,10 +81,10 @@ $query4 = "CREATE TABLE IF NOT EXISTS ".$t_api_table." (
 	stadium VARCHAR(255),
 	league VARCHAR(255)
     )";
-if ( $mydb->query($query4)== TRUE){
+if ( $mysqli->query($query4)== TRUE){
         echo "table: ".$t_api_table." created succesfully\n";
 } else {
-        echo "Error: " . $mydb->error;
+        echo "Error: " . $mysqli->error;
 }
 
 $query5 = "CREATE TABLE IF NOT EXISTS ".$p_api_table." (
@@ -96,12 +97,12 @@ $query5 = "CREATE TABLE IF NOT EXISTS ".$p_api_table." (
 	pass_percent INT,
 	clean_sheets INT,
 	point_earned INT)";
-if ( $mydb->query($query5)== TRUE){
+if ( $mysqli->query($query5)== TRUE){
         echo "table: ".$p_api_table." created succesfully\n";
 } else {
-        echo "Error: " . $mydb->error;
+        echo "Error: " . $mysqli->error;
 }
 
 
-$mydb->close();
+$mysqli->close();
 ?>
