@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="main.css"; ?>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EPL Fantasy Soccer</title>
+    <link href="bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
+  </head>
 
 <nav>
         <ul>
@@ -10,6 +16,7 @@
 
 <div>
 <h1>Welcome back!</h1>
+<script src="bootstrap-5.3.3-dist/js/bootstrap.js"></script>
 <p>Login or <a href="register.php">Register</a></p>
 </div>
 

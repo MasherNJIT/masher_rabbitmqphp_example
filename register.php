@@ -3,6 +3,9 @@
 <head>
     <link rel="stylesheet" href="main.css">
     <title>Register</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
 </head>
 
 <nav>
@@ -14,6 +17,8 @@
 <body>
 <div>
     <h1>Register</h1>
+    <script src="bootstrap-5.3.3-dist/js/bootstrap.js"></script>
+
 </div>
     <form action="registration.php" method="POST">
         <div> 
