@@ -76,7 +76,7 @@ $p_api_table = 'api_players';
 
 $query4 = "CREATE TABLE IF NOT EXISTS ".$t_api_table." (
 	team_id INT PRIMARY KEY AUTO_INCREMENT,
-	team_name VARCHAR(255) NULL UNIQUE,
+	team_name VARCHAR(255) UNIQUE,
 	team_id_api INT NOT NULL,
 	stadium VARCHAR(255),
 	league VARCHAR(255)
