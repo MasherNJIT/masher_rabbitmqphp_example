@@ -10,7 +10,7 @@ $response = $client->send_request($request);
 ?>
 
 <link rel="stylesheet" href="main.css" ; ?>
-
+<
 <div>
   <h1>Leagues</h1>
 </div>
@@ -21,7 +21,7 @@ $response = $client->send_request($request);
 
 <div class="button-container">
   <button>Join League</button>
-  <button>Create League</button>
+  <button><a href="createl.php">Create League</a></button>
 </div>
 
 <div>
