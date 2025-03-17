@@ -13,6 +13,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 
 <link rel="stylesheet" href="main.css"; ?>
 
+
 <div>
 <h1>Home</h1>
 </div>
