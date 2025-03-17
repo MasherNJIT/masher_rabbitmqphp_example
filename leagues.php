@@ -20,7 +20,7 @@ $response = $client->send_request($request);
 </div>
 
 <div class="button-container">
-  <button>Join League</button>
+  <button><a href="joinl.php">Join League</a></button>
   <button><a href="createl.php">Create League</a></button>
 </div>
 
