@@ -79,3 +79,15 @@ table{
     padding: 20px;
     border-radius: 10px;
   }
+
+  .league-creator{
+    background-color: lightgreen;
+    border-radius: 10px;
+    width: 500px !important;
+    height: 500px !important;
+  }
+
+  .player-selector{
+    background-color:skyblue;
+    border-radius: 50%;
+  }
