@@ -1,7 +1,3 @@
-<?php
-//This is for creating a league
-?>
-
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="main.css"; ?>
@@ -13,7 +9,7 @@
 </head>
 
 <div>
-<h1>Create your league!</h1>
+<h1>Create your team!</h1>
 </div>
 
 <div>
