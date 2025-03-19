@@ -15,7 +15,7 @@ $request['user_id'] = $userID;
 
 $response = $client->send_request($request);
 
-if ($response == 1)
+if ($response['returnCode'] == 1)
 {
 session_unset();
 session_destroy();
