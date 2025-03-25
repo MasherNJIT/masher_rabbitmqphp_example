@@ -4,6 +4,15 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    echo "Welcome to your profile, " . $_SESSION['username'];
+    echo "Your user ID is: " . $_SESSION['user_id'];
+} else {
+    header("Location: index.php");
+    exit();
+}
+
+
 $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
 $request['type'] = "SelectPlayers";
 $response = $client->send_request($request);
