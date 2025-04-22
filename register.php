@@ -25,6 +25,10 @@
             <label for="email">Email</label>
             <input type="email" name="email" required />
         </div>
+        <div> 
+            <label for="phone">Phone Number</label>
+            <input type="tel" name="phone" required />
+        </div>
         <div>
             <label for="f_name">First Name</label>
             <input type="text" id="f_name" name="f_name" required />
@@ -50,6 +54,7 @@
         
         // Sanitize and validate inputs
         $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
+        $phone = filter_var(trim($_POST["phone"]), FILTER_VALIDATE_INT);
         $f_name = htmlspecialchars(trim($_POST["f_name"]));
         $l_name = htmlspecialchars(trim($_POST["l_name"]));
         $username = htmlspecialchars(trim($_POST["username"]));
@@ -57,6 +62,9 @@
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors[] = "Invalid email format.";
+        }
+        if (!filter_var($email, FILTER_VALIDATE_INT)) {
+            $errors[] = "Invalid phone number format.";
         }
         if (empty($f_name) || empty($l_name)) {
             $errors[] = "First and last name are required.";

@@ -19,6 +19,7 @@ $registration = array();
 
 $request['type'] = "register";
 $request['email']=$_POST['email'];
+$request['phone']=$_POST['phone'];
 $request['f_name']=$_POST['f_name'];
 $request['l_name']=$_POST['l_name'];
 $request['username']=$_POST['username'];
@@ -34,7 +35,7 @@ $response = $client->send_request($request);
 if($response['returnCode'] == 1) //This picks up return code 
 //if the front-end recieves a message from the MQ with a return code of 1, it means the registration is successful 
 {
-  header("Location: index.php"); 
+  header("Location: 2fa.php"); 
 }
 else if ($response['returnCode'] == 0) //returns user back to login page if registration is a failure
 {

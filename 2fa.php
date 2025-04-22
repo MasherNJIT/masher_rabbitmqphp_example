@@ -11,13 +11,13 @@
     <div class="card mt-5">
       <div class="card-body py-5 px-lg-5">
         <div class="svg-icon svg-icon-xl text-purple">
-          <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><title>ionicons-v5-g</title><path d="M336,208V113a80,80,0,0,0-160,0v95" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path><rect x="96" y="208" width="320" height="272" rx="48" ry="48" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></rect></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 512 512"><title>ionicons-v5-g</title><path d="M336,208V113a80,80,0,0,0-160,0v95" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path><rect x="96" y="208" width="320" height="272" rx="48" ry="48" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></rect></svg>
         </div>
         <h3 class="fw-normal text-dark mt-4">
           2-step verification
         </h3>
         <p class="mt-4 mb-1">
-          We sent a verification code to your email.
+          We sent a verification code to your phone number.
         </p>
         <p>
           Please enter the code in the field below.
@@ -51,12 +51,6 @@
       </div>
     </div>
 
-    <p class="text-center text-muted mt-4">
-      Didn't receive it?
-      <a href="#!" class="text-decoration-none ms-2">
-        Resend code
-      </a>
-    </p>
   </div>
 </div>
 
