@@ -5,13 +5,15 @@
 }
 
 
-nav{
+nav{ 
  
+padding: 0px !important;
 
 ul {
     list-style: none;
-    margin-top: 0px;
+    margin-top: 0px !important;
     padding:15px;
+    width: 100% !important;
     background-color: seagreen;
 }
   
@@ -26,7 +28,7 @@ li a{
     text-decoration: none;
 }
 
-}
+} 
  
 div{
     margin: 5px;
@@ -34,14 +36,26 @@ div{
     padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
+} 
+
+.container-fluid{
+    margin: 0px !important;
+    padding: 0px !important;
 }
+
+.collapse{
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
 
 form{
     margin-left:15px;
 }
 
 body{
-    margin:0px;
+    margin:0px !important;
+    padding:0px !important;
     background-color: honeydew !important;
 }
 
