@@ -22,35 +22,30 @@
         <p>
           Please enter the code in the field below.
         </p>
-
+        <form action = "2fauthentication.php" method = "POST">
         <div class="row mt-4 pt-2">
           <!-- Create 6 input fields -->
           <div class="col">
-          <form method ="POST">
             <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode1" maxlength="1" required autofocus="" oninput="moveFocus(this, 1)">
           </div>
           <div class="col">
-          <form method ="POST">
             <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode2" maxlength="1" required oninput="moveFocus(this, 2)">
           </div>
           <div class="col">
-          <form method ="POST">
             <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode3" maxlength="1" required oninput="moveFocus(this, 3)">
           </div>
           <div class="col">
-          <form method ="POST">
             <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode4" maxlength="1" required oninput="moveFocus(this, 4)">
           </div>
           <div class="col">
-          <form method ="POST">
             <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode5" maxlength="1" reqired oninput="moveFocus(this, 5)">
           </div>
           <div class="col">
-          <form method ="POST">
             <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode6" maxlength="1" required oninput="moveFocus(this, 6)">
           </div>
         </div>
         <input type="submit" value="Verify my account" class="button">
+        </form>
         </a>
       </div>
     </div>
@@ -66,10 +61,3 @@
     }
   }
 </script>
-
-<?php
-
-$codeArray = array($_POST["2fcode1"],$_POST["2fcode2"],$_POST["2fcode3"],$_POST["2fcode4"],$_POST["2fcode5"],$_POST["2fcode6"]);
-$code = implode("", $codeArray);
-
-?>
