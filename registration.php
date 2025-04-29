@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 echo "registering..";
 require_once('path.inc');
 require_once('get_host_info.inc');
@@ -30,6 +33,7 @@ $request['message'] = $msg;
 $response = $client->send_request($request);
 //$response = $client->publish($request);
 
+$_SESSION['phone'] = $response['phone'];
 
 
 if($response['returnCode'] == 1) //This picks up return code 

@@ -26,22 +26,22 @@
         <div class="row mt-4 pt-2">
           <!-- Create 6 input fields -->
           <div class="col">
-            <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode1" maxlength="1" required autofocus="" oninput="moveFocus(this, 1)">
+            <input type="text" class="form-control form-control-lg text-center py-4" name ="2fcode1" maxlength="1" required autofocus="" oninput="moveFocus(this, 1)">
           </div>
           <div class="col">
-            <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode2" maxlength="1" required oninput="moveFocus(this, 2)">
+            <input type="text" class="form-control form-control-lg text-center py-4" name ="2fcode2" maxlength="1" required oninput="moveFocus(this, 2)">
           </div>
           <div class="col">
-            <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode3" maxlength="1" required oninput="moveFocus(this, 3)">
+            <input type="text" class="form-control form-control-lg text-center py-4" name ="2fcode3" maxlength="1" required oninput="moveFocus(this, 3)">
           </div>
           <div class="col">
-            <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode4" maxlength="1" required oninput="moveFocus(this, 4)">
+            <input type="text" class="form-control form-control-lg text-center py-4" name ="2fcode4" maxlength="1" required oninput="moveFocus(this, 4)">
           </div>
           <div class="col">
-            <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode5" maxlength="1" reqired oninput="moveFocus(this, 5)">
+            <input type="text" class="form-control form-control-lg text-center py-4" name ="2fcode5" maxlength="1" reqired oninput="moveFocus(this, 5)">
           </div>
           <div class="col">
-            <input type="text" class="form-control form-control-lg text-center py-4" id ="2fcode6" maxlength="1" required oninput="moveFocus(this, 6)">
+            <input type="text" class="form-control form-control-lg text-center py-4" name ="2fcode6" maxlength="1" required oninput="moveFocus(this, 6)">
           </div>
         </div>
         <input type="submit" value="Verify my account" class="button">

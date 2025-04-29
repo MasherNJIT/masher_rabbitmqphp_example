@@ -1,11 +1,14 @@
 <?php
 
-echo "verifying authentication..";
+session_start();
+
+//echo "verifying authentication..";
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
 $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+
 if (isset($argv[1]))
 {
   $msg = $argv[1];
@@ -15,18 +18,20 @@ else
   $msg = "2fa request sent";
 }
 
-$request['type'] = "twoFA";
-
+$phone = $_SESSION['phone'];
 $twoFcodeArray = array($_POST["2fcode1"],$_POST["2fcode2"],$_POST["2fcode3"],$_POST["2fcode4"],$_POST["2fcode5"],$_POST["2fcode6"]);
-$twoFcode = implode("", $twoFcodeArray);
-$request['randCode'] = $twoFcode;
+$twoFcode = trim(implode("", $twoFcodeArray));
 
-$request['message'] = $msg;
+$request['type'] = "verifytfa";
+$request['code'] = $twoFcode;
+$request['phone'] = $phone;
+
 $response = $client->send_request($request);
 
 if($response['returnCode'] == 1) //This picks up return code 
 //if the front-end recieves a message from the MQ with a return code of 1, it means the 2fa is successful 
 {
+  echo "verifying authentication..";
   header("Location: index.php"); 
 }
 else if ($response['returnCode'] == 0) //returns user back to login page if 2fa is a failure
