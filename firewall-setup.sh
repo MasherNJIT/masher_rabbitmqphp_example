@@ -4,6 +4,8 @@ DMZ_IP="192.168.192.252"
 WEB_IP="192.168.192.121"
 RMQ_IP="192.168.192.144"
 DB_IP="192.168.192.71"
+DB_IP_DEV="192.168.192.82"
+DB_IP_PRO="192.168.192.236"
 
 read -p "Enter the your role (dmz/web/rmq/db): " ROLE
 echo "Configuring firewall for $ROLE..."
@@ -35,6 +37,8 @@ case "$ROLE" in
 		echo "Applying Database firewall rules..."
 		sudo ufw allow from $WEB_IP to any port 3306 proto tcp
 		sudo ufw allow from $RMQ_IP to any port 3306 proto tcp
+		sudo ufw allow from $DB_IP_DEV to any port 3306 proto tcp
+		sudo ufw allow from $DB_IP_PRO to any port 3306 proto tcp
 		sudo ufw deny from any
 		;;
 	*)
