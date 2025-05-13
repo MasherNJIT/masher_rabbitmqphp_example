@@ -1,6 +1,8 @@
 <?php
 include('partials/nav.php');
 
+session_start();
+
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     echo "Welcome to your profile, " . $_SESSION['username'];
     echo "Your user ID is: " . $_SESSION['user_id'];

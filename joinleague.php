@@ -21,6 +21,8 @@ $request = array();
 $request['type'] = "join_league";
 $request['lname'] = $_POST['league_name'];
 $request['lpass'] = $_POST['league_password'];
+$request['user_id'] = $_SESSION['user_id'];
+$request['team_name'] = $_SESSION['username'];
 
 $response = $client->send_request($request);
 
