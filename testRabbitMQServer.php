@@ -359,6 +359,27 @@ function showLeagues()
         return json_encode($leagues);
 }
 
+function joinLeague($league, $passwd)
+{
+
+    $mysqli = require __DIR__ . "/database.php";
+    $sql = "SELECT league_id, league_password_hash FROM league_name WHERE league_name = ?";
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("s", $league);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($league = $result->fetch_assoc()) {
+        $leagueID = $league['league_id'];
+        if (password_verify($passwd, $league["league_password_hash"])) {
+            return array("returnCode" => '1', 'league_id' => $leagueID);
+        } else {
+            return array("returnCode" => '0', 'message' => "Invalid input");
+        }
+    } else {
+        return array("returnCode" => '0', 'message' => "Invalid username");
+    }
+}
 
 function requestProcessor($request)
 {
@@ -399,6 +420,8 @@ function requestProcessor($request)
 	    return verifyTFA($request['code'], $request['phone']);
     case "create_league":
 	    return createLeague($request['lname'], $request['lpass'], $request['ownerName'], $request['owner_id']);
+    case "join_league":
+	    return joinLeague($request['lname'], $request['lpass']); 
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
