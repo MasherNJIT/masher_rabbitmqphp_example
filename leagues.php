@@ -20,7 +20,6 @@ $response = $client->send_request($request);
 ?>
 
 <link rel="stylesheet" href="main.css" ; ?>
-<
 <div>
   <h1>Leagues</h1>
 </div>
@@ -44,7 +43,23 @@ $response = $client->send_request($request);
         <input type="password" id="league_password" name="league_password" />
     </div>
     <input type="submit" id="create_league" value="create_league" class="button"/>
+</form>
 
+<div>
+  <h3>Join A League</h1>
+</div>
+
+<form action="joinleague.php" method="POST">
+    <div>
+        <label for="league_name">League Name</label>
+        <input type="text" id="league_name" name="league_name" required />
+    </div> 
+    <div> 
+        <label for="password">League Password</label>
+        <input type="password" id="league_password" name="league_password" />
+    </div>
+    <input type="submit" id="join_league" value="join_league" class="button"/>
+</form>
 
 <div>
   <h2>View Teams</h2>

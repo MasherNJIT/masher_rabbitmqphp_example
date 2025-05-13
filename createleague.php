@@ -19,16 +19,16 @@ $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
 $request = array();
 
 $request['type'] = "create_league";
-$request['league_name'] = $_POST['league_name'];
-$request['league_password'] = $_POST['league_password'];
-$request['league_owner'] = $_SESSION['username'];
+$request['lname'] = $_POST['league_name'];
+$request['lpass'] = $_POST['league_password'];
+$request['ownerName'] = $_SESSION['username'];
 $request['owner_id'] = $_SESSION['user_id'];
 
 $response = $client->send_request($request);
 
 if($response['returnCode'] == 1) //This picks up return code 
 {
-  header("Location: leagues.php"); 
+  header("Location: home.php"); 
 }
 else if ($response['returnCode'] == 0)
 {
